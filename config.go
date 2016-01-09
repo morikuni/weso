@@ -26,7 +26,7 @@ options:
 	-template path
 		path to template file.
 	-origin url
-		oritin path for websocket.
+		oritin url for websocket header.
 	-debug
 		enable debug mode (print expanded template).
 `
