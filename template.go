@@ -3,6 +3,7 @@ package weso
 import (
 	"bytes"
 	"fmt"
+	"path/filepath"
 	"strings"
 	"text/template"
 
@@ -16,13 +17,15 @@ type Template struct {
 
 // NewTemplateFile create Template from file.
 func NewTemplateFile(path string) (*Template, error) {
+	name := filepath.Base(path)
+
 	templates := make(map[string]*template.Template)
 	t, err := template.ParseFiles(path)
 	if err != nil {
 		return nil, err
 	}
 	for _, tt := range t.Templates() {
-		if tt.Name() != path {
+		if tt.Name() != name {
 			templates[tt.Name()] = tt
 		}
 	}
