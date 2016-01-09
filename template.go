@@ -9,10 +9,12 @@ import (
 	"github.com/peterh/liner"
 )
 
+// Template is used to expand template.
 type Template struct {
 	templates map[string]*template.Template
 }
 
+// NewTemplateFile create Template from file.
 func NewTemplateFile(path string) (*Template, error) {
 	templates := make(map[string]*template.Template)
 	t, err := template.ParseFiles(path)
@@ -27,11 +29,18 @@ func NewTemplateFile(path string) (*Template, error) {
 	return &Template{templates}, nil
 }
 
+// EmptyTemplate is empty Template.
+var EmptyTemplate = &Template{
+	make(map[string]*template.Template),
+}
+
+// IsDefined check if Template for `name` exists.
 func (t *Template) IsDefined(name string) bool {
 	_, ok := t.templates[name]
 	return ok
 }
 
+// Names return template names.
 func (t *Template) Names() []string {
 	keys := make([]string, len(t.templates))
 	for k := range t.templates {
@@ -40,6 +49,7 @@ func (t *Template) Names() []string {
 	return keys
 }
 
+// Apply apply `args` to template for `name`.
 func (t *Template) Apply(name string, args ...string) ([]byte, error) {
 	vars := make(map[string]string)
 	for i, a := range args {
@@ -52,6 +62,7 @@ func (t *Template) Apply(name string, args ...string) ([]byte, error) {
 	return buf.Bytes(), nil
 }
 
+// Completer create liner.Completer from Template.
 func Completer(t *Template) liner.Completer {
 	names := make([]string, len(t.Names()))
 	for i, n := range t.Names() {
