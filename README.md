@@ -43,4 +43,6 @@ Arguments for template are expanded to `._1`, `._2` ... `._N`.
 
 ## Credit
 
-[Liner](https://github.com/peterh/liner) for line editor.
+weso uses
+
+- [Liner](https://github.com/peterh/liner) for line editor.
