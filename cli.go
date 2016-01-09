@@ -12,12 +12,19 @@ import (
 	"golang.org/x/net/websocket"
 )
 
+func isQuoted(s string) bool {
+	return (strings.HasPrefix(s, "\"") && strings.HasSuffix(s, "\"") ||
+		strings.HasPrefix(s, "'") && strings.HasSuffix(s, "'")) &&
+		len(s) >= 2
+}
+
 // Parse parse string to template name and args.
 func Parse(s string) []string {
-	r, _ := regexp.Compile("(\".+\"|[^\\s]+)")
+	r, _ := regexp.Compile("('[^']+'|\"[^\"]+\"|[^\\s]+)")
 	ss := r.FindAllString(s+" ", -1)
 	for i, s := range ss {
-		if strings.HasPrefix(s, "\"") && strings.HasSuffix(s, "\"") && len(s) >= 2 {
+		fmt.Println(s)
+		if isQuoted(s) {
 			ss[i] = s[1 : len(s)-1]
 		}
 	}
