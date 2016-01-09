@@ -14,10 +14,10 @@ import (
 
 // Parse parse string to template name and args.
 func Parse(s string) []string {
-	r, _ := regexp.Compile("(\".*\"|[^\\s]*)")
+	r, _ := regexp.Compile("(\".+\"|[^\\s]+)")
 	ss := r.FindAllString(s+" ", -1)
 	for i, s := range ss {
-		if strings.HasPrefix(s, "\"") {
+		if strings.HasPrefix(s, "\"") && strings.HasSuffix(s, "\"") && len(s) >= 2 {
 			ss[i] = s[1 : len(s)-1]
 		}
 	}
