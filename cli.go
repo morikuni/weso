@@ -23,7 +23,6 @@ func Parse(s string) []string {
 	r, _ := regexp.Compile("('[^']+'|\"[^\"]+\"|[^\\s]+)")
 	ss := r.FindAllString(s+" ", -1)
 	for i, s := range ss {
-		fmt.Println(s)
 		if isQuoted(s) {
 			ss[i] = s[1 : len(s)-1]
 		}
