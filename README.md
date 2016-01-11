@@ -4,6 +4,10 @@ CLI for Websocket.
 
 ## install
 
+Download from [Release Page](https://github.com/morikuni/weso/releases) (may not be the latest)
+
+or
+
 ```bash
 go get github.com/morikuni/weso/cmd/weso
 ```
